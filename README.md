@@ -1,6 +1,3 @@
-
-Here’s the updated version of your README with the changes you requested:
-
 Automart Ecommerce Website with Django + React
 This project, Automart, is a full-fledged ecommerce website built using Django for the backend and React for the frontend. It's designed as a functional online store where users can browse products, manage their profiles, and complete their purchases.
 
