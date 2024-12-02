@@ -7,80 +7,88 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
+    # This migration is the initial migration for setting up the database models
     initial = True
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),  # Ensure the user model dependency is set
     ]
 
     operations = [
+        # Creating 'Order' model to store order-related details like payment method, prices, delivery status, etc.
         migrations.CreateModel(
-            name='Order',
+            name='Order',  # Model name
             fields=[
-                ('paymentMethod', models.CharField(blank=True, max_length=200, null=True)),
-                ('taxPrice', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),
-                ('shippingPrice', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),
-                ('totalPrice', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),
-                ('isPaid', models.BooleanField(default=False)),
-                ('paidAt', models.DateTimeField(blank=True, null=True)),
-                ('isDelivered', models.BooleanField(default=False)),
-                ('deliveredAt', models.DateTimeField(blank=True, null=True)),
-                ('createdAt', models.DateTimeField(auto_now_add=True)),
-                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('paymentMethod', models.CharField(blank=True, max_length=200, null=True)),  # Payment method field
+                ('taxPrice', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),  # Tax applied on order
+                ('shippingPrice', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),  # Shipping cost
+                ('totalPrice', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),  # Total order price
+                ('isPaid', models.BooleanField(default=False)),  # Whether the order is paid
+                ('paidAt', models.DateTimeField(blank=True, null=True)),  # Date and time when payment is made
+                ('isDelivered', models.BooleanField(default=False)),  # Whether the order is delivered
+                ('deliveredAt', models.DateTimeField(blank=True, null=True)),  # Date and time of delivery
+                ('createdAt', models.DateTimeField(auto_now_add=True)),  # Order creation timestamp
+                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),  # Primary key field
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),  # Link to User model
             ],
         ),
+        # Creating 'Product' model to store details of products available for order
         migrations.CreateModel(
-            name='Product',
+            name='Product',  # Model name
             fields=[
-                ('name', models.CharField(blank=True, max_length=200, null=True)),
-                ('image', models.ImageField(blank=True, default='/placeholder.png', null=True, upload_to='')),
-                ('brand', models.CharField(blank=True, max_length=200, null=True)),
-                ('category', models.CharField(blank=True, max_length=200, null=True)),
-                ('description', models.TextField(blank=True, null=True)),
-                ('rating', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),
-                ('numReviews', models.IntegerField(blank=True, default=0, null=True)),
-                ('price', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),
-                ('countInStock', models.IntegerField(blank=True, default=0, null=True)),
-                ('createdAt', models.DateTimeField(auto_now_add=True)),
-                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('name', models.CharField(blank=True, max_length=200, null=True)),  # Product name
+                ('image', models.ImageField(blank=True, default='/placeholder.png', null=True, upload_to='')),  # Product image (optional)
+                ('brand', models.CharField(blank=True, max_length=200, null=True)),  # Brand of the product
+                ('category', models.CharField(blank=True, max_length=200, null=True)),  # Product category
+                ('description', models.TextField(blank=True, null=True)),  # Detailed description of the product
+                ('rating', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),  # Rating of the product
+                ('numReviews', models.IntegerField(blank=True, default=0, null=True)),  # Number of reviews
+                ('price', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),  # Price of the product
+                ('countInStock', models.IntegerField(blank=True, default=0, null=True)),  # Stock quantity available
+                ('createdAt', models.DateTimeField(auto_now_add=True)),  # Product creation timestamp
+                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),  # Primary key field
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),  # Link to User model
             ],
         ),
+        # Creating 'OrderItem' model to store details of each product in an order
         migrations.CreateModel(
-            name='OrderItem',
+            name='OrderItem',  # Model name
             fields=[
-                ('name', models.CharField(blank=True, max_length=200, null=True)),
-                ('qty', models.IntegerField(blank=True, default=0, null=True)),
-                ('price', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),
-                ('image', models.CharField(blank=True, max_length=200, null=True)),
-                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),
-                ('order', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='base.order')),
-                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='base.product')),
+                ('name', models.CharField(blank=True, max_length=200, null=True)),  # Product name in the order
+                ('qty', models.IntegerField(blank=True, default=0, null=True)),  # Quantity of product in the order
+                ('price', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),  # Price of product in order
+                ('image', models.CharField(blank=True, max_length=200, null=True)),  # Image URL of the product
+                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),  # Primary key field
+                ('order', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='base.order')),  # Link to Order model
+                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='base.product')),  # Link to Product model
             ],
         ),
+        # Creating 'Review' model to store user reviews for products
         migrations.CreateModel(
-            name='Review',
+            name='Review',  # Model name
             fields=[
-                ('name', models.CharField(blank=True, max_length=200, null=True)),
-                ('rating', models.IntegerField(blank=True, default=0, null=True)),
-                ('comment', models.TextField(blank=True, null=True)),
-                ('createdAt', models.DateTimeField(auto_now_add=True)),
-                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),
-                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='base.product')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('name', models.CharField(blank=True, max_length=200, null=True)),  # Reviewer name
+                ('rating', models.IntegerField(blank=True, default=0, null=True)),  # Rating given by user (1-5 scale)
+                ('comment', models.TextField(blank=True, null=True)),  # Review comment
+                ('createdAt', models.DateTimeField(auto_now_add=True)),  # Timestamp when review is created
+                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),  # Primary key field
+                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='base.product')),  # Link to Product model
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),  # Link to User model
             ],
         ),
+        # Creating 'ShippingAddress' model to store shipping information for an order
         migrations.CreateModel(
-            name='ShippingAddress',
+            name='ShippingAddress',  # Model name
             fields=[
-                ('address', models.CharField(blank=True, max_length=200, null=True)),
-                ('city', models.CharField(blank=True, max_length=200, null=True)),
-                ('postalCode', models.CharField(blank=True, max_length=200, null=True)),
-                ('country', models.CharField(blank=True, max_length=200, null=True)),
-                ('shippingPrice', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),
-                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),
-                ('order', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='base.order')),
+                ('address', models.CharField(blank=True, max_length=200, null=True)),  # Shipping address
+                ('city', models.CharField(blank=True, max_length=200, null=True)),  # City for delivery
+                ('postalCode', models.CharField(blank=True, max_length=200, null=True)),  # Postal code for delivery
+                ('country', models.CharField(blank=True, max_length=200, null=True)),  # Country for delivery
+                ('shippingPrice', models.DecimalField(blank=True, decimal_places=2, max_digits=7, null=True)),  # Shipping cost
+                ('_id', models.AutoField(editable=False, primary_key=True, serialize=False)),  # Primary key field
+                ('order', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='base.order')),  # Link to Order model
             ],
         ),
     ]
+
+# Md Golam Sharoar Saymum 0242220005101780

@@ -26,7 +26,7 @@ SECRET_KEY = 'sc%oco$+(3$z$at=z4j)#l-+ym)+_b11389mdt2^12m$bf63%@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'proshop-demo.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'automart-demo.herokuapp.com']
 
 
 # Application definition
@@ -94,8 +94,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Root URL configuration
 ROOT_URLCONF = 'backend.urls'
 
+# Template settings for rendering views (used by TemplateView for frontend integration)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -114,6 +116,7 @@ TEMPLATES = [
     },
 ]
 
+# WSGI application for deployment
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
@@ -132,7 +135,7 @@ DATABASES = {
 # DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'proshop',
+#        'NAME': 'automart',
 #        'USER': 'dennisivy',
 #        'PASSWORD': os.environ.get('DB_PASS'),
 #        'HOST': os.environ.get('HOST'),
@@ -185,6 +188,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'frontend/build/static'
 ]
 
+MEDIA_ROOT = BASE_DIR / 'static/images'  # Directory where uploaded images are stored
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Directory for collected static files
 
 MEDIA_ROOT = BASE_DIR / 'static/images'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -199,7 +204,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 #AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 #AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-#AWS_STORAGE_BUCKET_NAME = 'proshop-bucket-demo'
+#AWS_STORAGE_BUCKET_NAME = 'automart-bucket-demo'
 
 
 if os.getcwd() == '/app':
