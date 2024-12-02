@@ -1,36 +1,65 @@
-# PropShop Ecommerce Website With Django + React
+Automart Ecommerce Website with Django + React
+This project, Automart, is a full-fledged ecommerce website built using Django for the backend and React for the frontend. It's designed as a functional online store where users can browse products, manage their profiles, and complete their purchases.
 
-Live Demo can be viewed at https://www.buildautomart.com/
+The project is developed and customized by Saymum and team, leveraging the combination of powerful web technologies, including Django, React, and PostgreSQL.
 
-This project is from my Django + React collaboration wih Brad Traversy. Full Course: https://www.udemy.com/course/django-with-react-an-ecommerce-website/?couponCode=387F19CD4087385E87C1
 
-![DEMO](../master/static/images/automart_django_demo.png)
 
-# Features
+Features
+Full-featured shopping cart
+Product reviews and ratings
+Top products carousel
+Product pagination
+Product search functionality
+User profiles with order history
+Admin dashboard for product and user management
+Admin Order details page with "mark as delivered" option
+Checkout process (shipping, payment methods, etc.)
+PayPal/Credit Card payment integration
+Download & Setup Instructions
+Clone the project:
 
-- Full featured shopping cart
-- Product reviews and ratings
-- Top products carousel
-- Product pagination
-- Product search feature
-- User profile with orders
-- Admin product management
-- Admin user management
-- Admin Order details page
-- Mark orders as delivered option
-- Checkout process (shipping, payment method, etc)
-- PayPal / credit card integration
+bash
+Copy code
+git clone https://github.com/Golam-7/automart.git
+Navigate to the project folder:
 
-# Download & Setup Instructions
+bash
+Copy code
+cd automart_django
+Set up a virtual environment:
 
-- 1 - Clone project: git clone https://github.com/divanov11/automart_django/
-- 2 - cd automart_django
-- 3 - Create virtual environment: virtualenv myenv
-- 4 - myenv\scripts\activate
-- 5 - pip install -r requirements.txt
-- 6 - python manage.py runserver
+bash
+Copy code
+python -m venv myenv
+Activate the virtual environment:
 
-# Install react modules
+bash
+Copy code
+source myenv/Scripts/activate  # On Windows
+Install the required dependencies:
 
-- 1 - cd frontend
-- 2 - npm install
+bash
+Copy code
+pip install -r requirements.txt
+Apply migrations to set up the database:
+
+bash
+Copy code
+python manage.py migrate
+Start the development server:
+
+bash
+Copy code
+python manage.py runserver
+Install React Modules
+Navigate to the frontend folder:
+
+bash
+Copy code
+cd frontend
+Install the required npm dependencies:
+
+bash
+Copy code
+npm install
